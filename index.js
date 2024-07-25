@@ -1,13 +1,17 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+const apiKey = process.env.API_KEY;
+const dbPassword = process.env.DB_PASSWORD;
 
 app.get('/api', async (req, res) => {
   try {
-    const response = await axios.get('URL_API');
+    const response = await axios.get(`https://api.example.com/data?key=${apiKey}`);
     res.json(response.data);
   } catch (error) {
     res.status(500).send(error.toString());
@@ -17,7 +21,7 @@ app.get('/api', async (req, res) => {
 // Route pour faire du scraping
 app.get('/scrape', async (req, res) => {
   try {
-    const response = await axios.get('URL_SCRAPER');
+    const response = await axios.get(`https://api.example.com/data?key=${apiKey}`);
     const html = response.data;
     const $ = cheerio.load(html);
     
