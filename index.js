@@ -18,7 +18,6 @@ app.get('/api', async (req, res) => {
   }
 });
 
-// Route pour faire du scraping
 app.get('/scrape', async (req, res) => {
   try {
     const response = await axios.get(`https://api.example.com/data?key=${apiKey}`);
